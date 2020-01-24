@@ -15,13 +15,14 @@ services:
         networks:
             - net-magento
     php:  
-        build:
-           context: .
-           dockerfile: Dockerfile
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        image: magento2:1.2
         container_name: web-magento
         ports:
             - "8080:80"
         networks:
-            - net-magento              
+            - net-magento           
 networks:
         net-magento:
