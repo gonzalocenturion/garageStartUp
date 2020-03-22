@@ -14,8 +14,8 @@ RUN  apt-get update \
      php-zip \
      php-intl \
      libapache2-mod-php \
-#     mysql-server \
      php-xsl \
+     php-curl \
      composer \
      && rm -rf /var/lib/apt/lists/*
 
