@@ -1,0 +1,33 @@
+FROM php:7.2.28-apache
+
+WORKDIR /var/www/html
+
+RUN rm /etc/apt/preferences.d/no-debian-php
+
+RUN  apt-get update \
+     && apt-get install -y --no-install-recommends \
+     git \
+     php-gd \
+     php-bcmath \
+     php-pdo-mysql \
+     php-soap \
+     php-zip \
+     php-intl \
+     libapache2-mod-php \
+#     mysql-server \
+     php-xsl \
+     composer \
+     && rm -rf /var/lib/apt/lists/*
+
+RUN a2enmod rewrite
+
+RUN service apache2 restart
+
+RUN git clone https://github.com/magento/magento2.git ./magento2
+
+RUN chown -R www-data:www-data ./magento2
+
+CMD apache2ctl -DFOREGROUND
+
+#Se expone el puerto 8080 porque con el puerto 80 genera error al correr el contenedor
+EXPOSE 8080
