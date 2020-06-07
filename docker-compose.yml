@@ -4,25 +4,14 @@ services:
         image: mysql:5.7
         volumes:
             - $PWD/data:/var/lib/mysql
-        container_name: mysql-magento
-        ports:
-            - "3306:3306"
+        container_name: mysql
         environment:
             MYSQL_ROOT_PASSWORD: example
             MYSQL_DATABASE: magento2
             MYSQL_USER: magentoroot
             MYSQL_PASSWORD: magento123
-        networks:
-            - net-magento
-    php:  
-        build: 
-            context: .
-            dockerfile: Dockerfile
-        image: magento2:1.2
-        container_name: web-magento
-        ports:
-            - "8080:80"
-        networks:
-            - net-magento           
-networks:
-        net-magento:
+    server:
+        image: gonzalodkr/magento2-server:1.2
+        container_name: magento
+        volumes:
+            - $PWD/config:/usr/local/etc/php
